@@ -1,0 +1,83 @@
+{% extends 'recipes/base.html' %}
+
+{% block title %}Добавить рецепт{% endblock %}
+{% load custom_filters %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2 class="mb-0">Добавить рецепт</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Название рецепта -->
+                        <div class="form-group mb-3">
+                            <label for="id_title" class="form-label">Название рецепта</label>
+                            {{ form.title|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Описание -->
+                        <div class="form-group mb-3">
+                            <label for="id_description" class="form-label">Краткое описание</label>
+                            {{ form.description|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Инструкции -->
+                        <div class="form-group mb-3">
+                            <label for="id_instructions" class="form-label">Инструкции</label>
+                            {{ form.instructions|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Категория -->
+                        <div class="form-group mb-3">
+                            <label for="id_category" class="form-label">Категория</label>
+                            {{ form.category|add_class:"form-select" }}
+                        </div>
+
+                        <!-- Время приготовления -->
+                        <div class="form-group mb-3">
+                            <label for="id_cooking_time" class="form-label">Время приготовления (минуты)</label>
+                            {{ form.cooking_time|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Изображение -->
+                        <div class="form-group mb-3">
+                            <label for="id_image" class="form-label">Изображение (опционально)</label>
+                            {{ form.image|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Кнопка отправки -->
+                        <div class="mt-4 text-center">
+                            <button type="submit" class="btn btn-success btn-lg w-100 submit-button">Добавить рецепт</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+   
+    .form-control, .form-select {
+        transition: none !important; 
+    }
+
+  
+    .submit-button {
+        transition: none !important; 
+    }
+
+  
+    .form-control:focus, .form-select:focus, .btn:hover, .btn:focus {
+        transform: none !important; 
+        box-shadow: none !important; 
+    }
+</style>
+{% endblock %}

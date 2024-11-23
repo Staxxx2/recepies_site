@@ -1,0 +1,41 @@
+{% extends 'recipes/base.html' %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="text-center mt-4">
+    <h2 class="mb-4">Добро пожаловать на Сайт рецептов!</h2>
+    <p class="lead">Откройте для себя уникальные рецепты или добавьте свои собственные!</p>
+</div>
+
+<div class="container mt-5">
+    <h3 class="mb-4 text-center">Случайные рецепты</h3>
+    {% if recipes %}
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        {% if recipe.image %}
+                            <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}">
+                        {% else %}
+                            <img src="{% static 'img/no-image.jpg' %}" class="card-img-top" alt="No image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recipe.title }}</h5>
+                            <p class="card-text">
+                                <strong>Автор:</strong> {{ recipe.author }}<br>
+                                <strong>Время:</strong> {{ recipe.cooking_time }} минут
+                            </p>
+                            <p class="card-text">{{ recipe.description|truncatechars:100 }}</p>
+                            <a href="{% url 'recipe_detail' recipe.pk %}" class="btn btn-primary btn-sm">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted">Пока нет рецептов. Будьте первым, кто добавит!</p>
+    {% endif %}
+</div>
+{% endblock %}
